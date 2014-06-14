@@ -12,6 +12,9 @@
 #define OBTENER_ARCHIVO "-o"
 #define QUITAR_ARCHIVO "-e"
 #define QUITAR_ARCHIVO_FECHA "-ef"
+#define ELIMINAR_TODO "-et"
+#define ELIMINAR_MENOR_FECHA "-efm"
+#define ELIMINAR_MAYOR_FECHA "-efM"
 
 #define CONSULTAR_FECHA "-qf"
 #define CONSULTAR_titulo "-qt"
@@ -49,6 +52,9 @@ enum CommandOption
 	ObtenerArchivo,
 	QuitarArchivo,
 	QuitarArchivoPorFecha,
+	EliminarTodo,
+	EliminarMenorFecha,
+	EliminarMayorFecha,
 	Consultartitulo,
 	ConsultarAutor,
 	ConsultarTitulo,
@@ -98,3 +104,4 @@ public:
 };
 
 #endif /* COMMANDPARSER_H_ */
+
