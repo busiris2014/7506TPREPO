@@ -41,10 +41,13 @@ bool CommandParser::validArguments(int count, char** params)
 
 			valid = true;
 		}
-		else if ((this->isIndexArguments(option) || Utility::equals(option, LISTAR_ARCHIVOS)) && (count == 2))
+		else if ((this->isIndexArguments(option) || Utility::equals(option, LISTAR_ARCHIVOS)
+				|| Utility::equals(option, ELIMINAR_TODO)) && (count == 2))
 			valid = true;
-		else if ((Utility::equals(option, OBTENER_ARCHIVO) ||
-				Utility::equals(option, QUITAR_ARCHIVO)) && (count == 3))
+		else if ((Utility::equals(option, OBTENER_ARCHIVO) || Utility::equals(option, QUITAR_ARCHIVO)
+				|| Utility::equals(option, QUITAR_ARCHIVO_FECHA) || Utility::equals(option, ELIMINAR_MENOR_FECHA)
+				|| Utility::equals(option, ELIMINAR_MAYOR_FECHA)) && (count == 3))
+
 		{
 			// Se carga el ID del archivo
 			this->fileId = params[2];
@@ -134,7 +137,7 @@ string CommandParser::printHelp()
 
 	* Eliminar documento por Menor a Fecha:	./miBiografia -efm fecha
 
-	* Eliminar documento por Mayor a Fecha:	./miBiografia -ef+ fecha
+	* Eliminar documento por Mayor a Fecha:	./miBiografia -efM fecha
 
 	* Ver estructura:			./miBiografia -v [-a|-t|-f|-i] nombreArchivoSalida.txt
 
@@ -154,11 +157,11 @@ string CommandParser::printHelp()
 	help += "Buscar por Fecha:                      '-qf fecha'\n";
 	help += "Buscar por Identificador:              '-qi id'\n";
 	help += "Obtener Documento por identificador:   '-o id'\n";
-	help += "Eliminar todo lo contenido:            '-et'\n";
 	help += "Eliminar Documento por identificador:  '-e id'\n";
 	help += "Eliminar Documento por Fecha:          '-ef fecha'\n";
 	help += "Eliminar Documento por menor a Fecha:  '-efm fecha'\n";
-	help += "Eliminar Documento por mayor a Fecha:  '-ef+ fecha'\n";
+	help += "Eliminar Documento por mayor a Fecha:  '-efM fecha'\n";
+	help += "Eliminar todo lo contenido:            '-et'\n";
 	help += "Ver estructura:                        '-v [-a|-t|-f|-i] nombreArchivoSalida.txt'\n";
 	help += '\n';
 	return help;
@@ -212,8 +215,16 @@ CommandOption CommandParser::getOption()
 		enumOption = QuitarArchivo;
 	else if (Utility::equals(option,QUITAR_ARCHIVO_FECHA))
 		enumOption = QuitarArchivoPorFecha;
+	else if (Utility::equals(option,ELIMINAR_MENOR_FECHA))
+			enumOption = EliminarMenorFecha;
+	else if (Utility::equals(option,ELIMINAR_MAYOR_FECHA))
+			enumOption = EliminarMayorFecha;
+
+	else if (Utility::equals(option, ELIMINAR_TODO))
+		enumOption = EliminarTodo;
+
 	else if (Utility::equals(option, CONSULTAR_titulo))
-		enumOption = Consultartitulo;
+			enumOption = Consultartitulo;
 	else if (Utility::equals(option, CONSULTAR_AUTOR))
 		enumOption = ConsultarAutor;
 	else if (Utility::equals(option, CONSULTAR_TITULO))
